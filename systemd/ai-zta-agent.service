@@ -1,0 +1,20 @@
+
+[Unit]
+Description=AI-ZTA Edge Agent
+After=network-online.target
+
+[Service]
+User=aiagent
+WorkingDirectory=/opt/ai-zta-linux
+Environment=POLICY_URL=http://127.0.0.1:8181/v1/data/ai_zta/decision
+Environment=IFACE=eth0
+Environment=THRESHOLDS=/opt/ai-zta-linux/config/config.yaml
+ExecStart=/usr/bin/python3 /opt/ai-zta-linux/agent/main.py
+AmbientCapabilities=CAP_NET_ADMIN
+CapabilityBoundingSet=CAP_NET_ADMIN
+NoNewPrivileges=true
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

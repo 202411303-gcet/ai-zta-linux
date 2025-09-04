@@ -1,0 +1,9 @@
+
+{
+  "thresholds": {
+    "log_only": 0.4,
+    "rate_limit": 0.7,
+    "quarantine": 0.85,
+    "block": 0.9
+  }
+}

@@ -1,0 +1,15 @@
+
+risk_thresholds:
+  log_only: 0.40
+  rate_limit: 0.70
+  quarantine: 0.85
+  block: 0.90
+
+rate_limit:
+  # kbps per host when action == rate_limit
+  kbps: 256
+  iface: eth0
+
+quarantine:
+  vlan: vlan20
+  bridge: br0  # if using OVS

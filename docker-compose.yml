@@ -1,0 +1,24 @@
+
+services:
+  opa:
+    image: openpolicyagent/opa:latest
+    command: ["run", "--server", "--addr=0.0.0.0:8181", "/policy/policy.rego", "/policy/data.json"]
+    ports:
+      - "8181:8181"
+    volumes:
+      - ./policy:/policy:ro
+
+  agent:
+    build: ./agent
+    environment:
+      - POLICY_URL=http://opa:8181/v1/data/ai_zta/decision
+      - IFACE=eth0
+      - THRESHOLDS=/app/config.yaml
+    volumes:
+      - ./config/config.yaml:/app/config.yaml:ro
+      - /var/run/netns:/var/run/netns
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - opa
